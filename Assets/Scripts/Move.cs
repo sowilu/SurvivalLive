@@ -15,6 +15,9 @@ public class Move : MonoBehaviour
     public float staminaRegen = 0.8f;
     public float staminaRegenDelay = 1.5f;
     
+    [Header("UI")]
+    public Transform staminaBar;
+    
     private float currentStamina;
     private float regenTimer;
     private bool isSprinting;
@@ -35,6 +38,7 @@ public class Move : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        currentStamina = maxStamina;
     }
 
     void Update()
@@ -78,6 +82,9 @@ public class Move : MonoBehaviour
         var move = transform.right * x + transform.forward * z;
         move.Normalize();
         controller.Move(move * speed * Time.deltaTime);
+        
+        //stamina ui update
+        staminaBar.localScale = new Vector3(1, currentStamina / maxStamina, 1);
         
         //jump
         if (Input.GetButton("Jump") && isGrounded)

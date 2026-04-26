@@ -31,6 +31,8 @@ public class Inventory : MonoBehaviour
         {
             items.Add(new InventoryItem(itemData, amount));
         }
+        
+        InfoPanel.instance.ShowInfo($"+{amount} {itemData.itemName}");
     }
 
     public bool HasItem(ItemData itemData, int amount)
